@@ -1,11 +1,16 @@
 #include <stdio.h>
-
-void print_hello()
-{
-	printf("Hello, World!\n");
-}
+#include <stdint.h>
 
 int main()
 {
-    print_hello();
+    // IPO model
+
+    // I - input
+    uint32_t x = 5;
+
+    // P - processing
+    uint32_t y = x * x + 5 * x + 5;
+
+    // O - output
+    printf("f(%i) = %i", x, y);
 }
