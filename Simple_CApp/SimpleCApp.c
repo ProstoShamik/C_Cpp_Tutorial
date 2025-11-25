@@ -2,31 +2,55 @@
 #include <stdint.h>
 
 int32_t f(int32_t x);
+void execute_print(int32_t x, int32_t count);
+int32_t scan_int(int32_t* x);
 void print_fx(int32_t x, int32_t y);
+
 
 int main()
 {
-    // IPO model
+    int32_t x, count; 
+    int r0 = scan_int(&x);
+    int r1 = scan_int(&count);
+    if (r0 == 1 && r1 == 1 && count > 0)
+    {
+        execute_print(x, count);
+    }
+    else if (r0 == EOF && r1 == EOF)
+    {
+        printf("IO Error!");
+    }
+    else if (r1 == 1 && count <= 0)
+    {
+        printf("The count (second value) must be greater than 0 !");
+    }
+    else
+        {
+            printf("The input(s) must be number!");
+        }
 
-    // I - input
-    int32_t x = 5;
+};
 
-    // P - processing
-    int32_t y = f(x);
-    int32_t y2 = f(x * 2);
-    int32_t y3 = f(x * 3);
-    int32_t y4 = f(x * 4);
-
-    // O - output
-    print_fx(x, y);
-    print_fx(x * 2, y2);
-    print_fx(x * 3, y3);
-    print_fx(x * 4, y4);
-}
 
 int32_t f(int32_t x)
 {
     return x * x + 5 * x + 5;
+};
+
+void execute_print(int32_t x, int32_t count)
+{
+    for (int32_t i = 0; i < count; i++)
+    {
+        int32_t y = f(i * x);
+        print_fx(i * x, y);
+    }
+};
+
+int scan_int(int32_t* x)
+{
+    printf("Enter the int value: ");
+    return scanf_s("%i", x);
+    
 };
 
 void print_fx(int32_t x, int32_t y)
